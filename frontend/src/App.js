@@ -2,6 +2,8 @@ import axios from 'axios'
 import React, {useState, useEffect} from 'react'
 import './styles.css'
 import Paper from '@mui/material/Paper'
+import Landing from './components/Landing'
+
 
 function App() {
   const [posts,setPosts] = useState([])
@@ -52,6 +54,7 @@ const loadPosts = () => {
 
   return (
 <>
+<Landing/>
     <div>
    <input value={name} onChange={(e) => setName(e.target.value)} placeholder='name' type='text'/>
    <input value={description} onChange={(e) => setDescription(e.target.value)} placeholder='description' type='text'/>
