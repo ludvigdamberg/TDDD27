@@ -1,14 +1,14 @@
 import axios from 'axios'
 import React, {useState, useEffect} from 'react'
-
+import './styles.css'
+import Paper from '@mui/material/Paper'
 
 function App() {
-
+  const [posts,setPosts] = useState([])
   const [drinks,setDrinks] = useState([])
   const [loading,setLoading] = useState(false)
   const [name,setName] = useState("")
   const [description,setDescription] = useState("")
-  const formData = new FormData()
   const [imageData,setImageData] = useState('')
  
     const createPost = () => {
@@ -37,35 +37,47 @@ function App() {
   
   }
   
-  const handleImage = (e) => {
-    e.preventDefault()
-    
-    formData.append("photo",e.target.files[0])
-
-}
-const handleChange = (e) => {
-  e.preventDefault()
-  
-  const formData = new FormData()
-  formData.append("photo",e.target.files[0])
-
-  axios.post("http://localhost:5000/api/save",{name: name, description: description, formData})
+const loadPosts = () => {
+  axios.get("http://localhost:5000/posts")
   .then((res) => {
-      console.log(res.data)
+    console.log(res.data)
+    setPosts(res.data)
   })
-  .catch((err) => console.log(err))
 }
 
+  useEffect(() => {
+
+    loadPosts()
+  },[])
 
   return (
+<>
     <div>
    <input value={name} onChange={(e) => setName(e.target.value)} placeholder='name' type='text'/>
    <input value={description} onChange={(e) => setDescription(e.target.value)} placeholder='description' type='text'/>
-   
-  <input type='file' onChange={(e) => setImageData(e.target.files[0])}/>
-
-  <button onClick={createPost}>Upload</button>
+   <input type='file' onChange={(e) => setImageData(e.target.files[0])}/>
+   <button onClick={createPost}>Upload</button>
     </div>
+    <div>
+      <h1>POSTS</h1>
+      <div>{posts.map((post) => {
+        return(
+          <div className='post' key={post._id}>
+           <Paper elevation={5}>
+            <img className='img' src={`http://localhost:5000/uploads/${post.photo}`}/>
+           
+            <div>
+            
+               <h1>{post.name}</h1>
+            <p>{post.description}</p> 
+          
+            </div>
+              </Paper>
+          </div>
+        )
+      })}</div>
+    </div>
+</>
   );
 }
 

@@ -32,14 +32,11 @@ mongoose.connect(process.env.MONGODB_URI)
 
  app.post("/save", uploadMiddleware.single("photo"), (req,res) => {
 
-   
-
-
     const photo = req.file.filename
-
 
     const post = new postModel({name:req.body.name,description: req.body.description, photo: photo})
     post.save()
+    .then(console.log("Saved successfully"))
 
 })
 
