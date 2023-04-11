@@ -1,6 +1,5 @@
 
 .Header{
-    width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -22,14 +21,14 @@
 
 
 .image-container {
-    width: 500px; /* set width of image container */
-    height: 500px; /* set height of image container */
-    border-radius: 50%; /* make image container circular */
-    overflow: hidden;
+  width: 500px; /* set width of image container */
+  height: 500px; /* set height of image container */
+  border-radius: 50%; /* make image container circular */
+  overflow: hidden;
   display: flex; /* Add display flex to center image vertically */
   align-items: center; /* Center image vertically */
   justify-content: center; /* Center image horizontally */
-  margin: 2px;
+
   }
   
 .image-container img {
@@ -49,31 +48,33 @@ object-fit: cover;
 }
 
 .Header2{
-    width: 100vw;
     height: 60vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(49, 117, 121);
+    background: rgb(49, 117, 121);
     flex-wrap: wrap; /* Add flex-wrap property to allow text to wrap */
+
 }
 .card {
     flex: 1;
     margin: 0 45px;
     max-width: 400px;
     aspect-ratio: 1/1; /* Set aspect ratio to 1:1 */
-    background: rgb(94, 138, 141);
+    background: rgb(62, 121, 124);
     border-radius: 10px;
     box-shadow: 0 8px 13px 0 rgba(41, 41, 43, 0.548);
     text-align: center;
-    color: rgb(253, 235, 133);
+    color: rgb(255, 240, 153);
   }
   .list{
   list-style: none;
   padding: 0;
   margin: 0;
   color: rgb(255, 255, 255);
-  }
+  font-size: 120%;
+  
+}
   .item{
     margin-top: 30px;
     margin-bottom: 15px;
