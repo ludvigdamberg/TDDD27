@@ -2,9 +2,9 @@ const mongoose = require('mongoose')
 const express = require('express')
 const cors = require('cors')
 require('dotenv').config()
-const postModel = require('./models/UploadModel')
-const uploadMiddleware = require('./middlewares/MulterMiddleware')
-const multer = require('multer')
+const Routes = require('./routes/routes')
+const { errorHandler, notFound } = require('./middlewares/errorMiddleware')
+
 
 const app = express()
 
@@ -29,20 +29,14 @@ mongoose.connect(process.env.MONGODB_URI)
  .catch(err => console.log(err))
 
 
+//Routes
 
- app.post("/save", uploadMiddleware.single("photo"), (req,res) => {
+app.use(Routes)
 
-    const photo = req.file.filename
-
-    const post = new postModel({name:req.body.name,description: req.body.description, photo: photo})
-    post.save()
-    .then(console.log("Saved successfully"))
-
-})
+//Error functions
+app.use(notFound)
+app.use(errorHandler)
 
 
-app.get('/posts', async (req,res) => {
 
-    const posts = await postModel.find()
-    res.send(posts) 
-})
+ 

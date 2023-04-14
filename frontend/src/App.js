@@ -3,6 +3,9 @@ import React, {useState, useEffect} from 'react'
 import './styles.css'
 import Landing from './components/Landing'
 import Post from './components/Post'
+import SignUp from './components/SignUp'
+import Login from './components/Login'
+
 
 function App() {
 
@@ -12,6 +15,7 @@ function App() {
 
   
 const loadPosts = () => {
+
   axios.get("http://localhost:5000/posts")
   .then((res) => {
     console.log(res.data)
@@ -43,6 +47,8 @@ const loadPosts = () => {
         )
       })}</div>
     </div>
+    <SignUp/>
+    <Login/>
 </>
   );
 }
