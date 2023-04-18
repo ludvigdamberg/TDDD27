@@ -1,12 +1,9 @@
 import axios from 'axios'
 import React, {useState, useEffect} from 'react'
-import './styles.css'
+import styles from './styles/styles.module.css'
 import Landing from './components/Landing'
 import Post from './components/Post'
-import SignUp from './components/SignUp'
-import Login from './components/Login'
-
-
+import Header from './components/Header'
 function App() {
 
   const [posts,setPosts] = useState([])
@@ -26,18 +23,20 @@ const loadPosts = () => {
 
     loadPosts()
 
+
   },[])
 
   return (
 <>
+<Header/>
 <Landing/>
 <Post/>
-    <div className=''>
+    <div>
       <h1>POSTS</h1>
-      <div className=''>{posts.map((post) => {
+      <div>{posts.map((post) => {
         return(
-          <div className='posts-container' key={post._id}>
-            <img className='img' src={`http://localhost:5000/uploads/${post.photo}`}/>
+          <div className={styles.posts_container} key={post._id}>
+            <img className={styles.img} src={`http://localhost:5000/uploads/${post.photo}`}/>
             <div>
                <h1>{post.name}</h1>
                <p>{post.description}</p> 
@@ -47,8 +46,7 @@ const loadPosts = () => {
         )
       })}</div>
     </div>
-    <SignUp/>
-    <Login/>
+   
 </>
   );
 }

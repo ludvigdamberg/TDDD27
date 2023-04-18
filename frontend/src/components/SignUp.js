@@ -1,15 +1,39 @@
 import React from 'react'
-import {useState} from 'react'
+import {useState, useRef, useEffect} from 'react'
 import axios from 'axios'
 
+const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
+
 const SignUp = () => {
+  const userRef = useRef();
+  const errRef = useRef();
+
+
 
     const[username,setUsername] = useState("")
     const[password,setPassword] = useState("")
     const[email,setEmail] = useState("")
 
-    const Signup = () => {
+    const [validName, setValidName] = useState(false);
 
+    const [errMsg, setErrMsg] = useState('');
+    const [success, setSuccess] = useState(false);
+
+    useEffect(() => {
+      setErrMsg('');
+  }, [username, password])
+
+  useEffect(() => {
+    const result = USER_REGEX.test(username);
+   
+    setValidName(result);
+}, [username])
+
+
+
+
+    const handleSignup = () => {
+      setSuccess(true);
         
       console.log({email,username,password})
 
@@ -27,13 +51,50 @@ const SignUp = () => {
     }
 
   return (
+<>
+            {success ? (
+                <section>
+                    <h1>Success!</h1>
+                    <p>
+                    <a href="#">Sign In</a>
+                    </p>
+                </section>
+            ) : (
+
     <div>
-        <input type='text' placeholder='Email' onChange={(e) => setEmail(e.target.value)}/>
-        <input type='text' placeholder='Username' onChange={(e) => setUsername(e.target.value)}/>
-        <input type='text' placeholder='Password' onChange={(e) => setPassword(e.target.value)}/>
-        <button onClick={Signup}>Sign up</button>
+      <h1>Register</h1>
+
+      <label htmlFor="email">Email:</label>
+        <input type='text' 
+        placeholder='Email' 
+        ref={userRef}
+        autoComplete="off"
+        onChange={(e) => setEmail(e.target.value)}
+        />
+        <label htmlFor="username">Username:</label>
+        <input type='text'
+         placeholder='Username' 
+         ref={userRef}
+         autoComplete="off"
+         onChange={(e) => setUsername(e.target.value)}
+         required
+         />
+        
+
+        <label htmlFor="password">Password:</label> 
+        <input type='password' 
+        placeholder='Password' 
+        onChange={(e) => setPassword(e.target.value)}
+        value={password}/>
+        
+        <button disabled={!validName ? true : false} 
+        onClick={handleSignup}>
+          Sign up
+          </button>
 
     </div>
+     )}
+     </>
   )
 }
 

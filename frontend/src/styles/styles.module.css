@@ -7,7 +7,7 @@ input{
   font-family: 'Poppins', sans-serif;
 }
 .Header{
-    height: 100vh;
+    height: 90vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,7 +25,7 @@ input{
     color: rgb(255, 240, 153);
     font-size: 350%;
 }
-.pick-file {
+.pick_file {
   color: rgb(67, 1, 128);
   font-size: 35px;
   margin:0;
@@ -36,7 +36,7 @@ input{
   
 }
 
-.image-container {
+.image_container {
   width: 500px; /* set width of image container */
   height: 500px; /* set height of image container */
   border-radius: 50%; /* make image container circular */
@@ -47,14 +47,14 @@ input{
 
   }
   
-.image-container img {
+.image_container img {
 height: 100%;
 width: 100%;
 object-fit: cover;
 
 
 }
-.text-container{
+.text_container{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -96,7 +96,7 @@ object-fit: cover;
   margin-bottom: 15px;
   
 }
-.post-container{
+.post_container{
   min-height: 35vh;
   margin: auto;
   width: 50vw;
@@ -111,7 +111,7 @@ object-fit: cover;
   box-shadow: 0 8px 23px 0 rgba(0, 0, 0, 0.2);
 }
 
-.post-input1{
+.post_input1{
   border: none;
   background-color: rgb(11, 58, 58);
   width: 300px;
@@ -122,7 +122,7 @@ object-fit: cover;
   margin-top: 15px;
   
 }
-.post-input2{
+.post_input2{
   border: none;
   background-color: rgb(11, 58, 58);
   width: 1000px;
@@ -132,7 +132,7 @@ object-fit: cover;
   margin: 10px;
   
 }
-.post-container button{
+.post_container button{
   background: rgb(150, 172, 110);
   color: white;
   font-weight: bold;
@@ -144,7 +144,7 @@ object-fit: cover;
   font-family: 'Poppins', sans-serif;
   border-radius: 5px;
 }
-.posts-container{
+.posts_container{
   min-height: 35vh;
   margin: auto;
   margin-top: 30px;
