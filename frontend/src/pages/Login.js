@@ -1,20 +1,22 @@
 import React from 'react'
 import styles from '../styles/login.module.css'
+import LoginForm from '../components/LoginForm'
 
 
 const Login = () => {
 
   return (
-  <div className={styles.parent}>
-   <div className={styles.left}>
-    <h1>LOGIN TO START SHARING THE FUN!</h1>
-   </div>
-   <div className={styles.right}>
-  <div className={styles.image_container}>
-    <img src='../content/cheers.jpg'/>
+    <div className={styles.parent}>
+      <div className={styles.left}>
+        <h1 className={styles.label}>LOGIN🎈</h1>
+        <LoginForm />
+      </div>
+      <div className={styles.right}>
+        <div className={styles.image_container}>
+          <img src='../content/cheers.jpg' />
+        </div>
+      </div>
     </div>
-   </div>
-   </div>
   )
 }
 

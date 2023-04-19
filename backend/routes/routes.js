@@ -79,7 +79,6 @@ router.post("/register", asyncHandler(async (req,res) => {
             email:user.email,
             username:user.username,
             password:user.password,
-            token: generateToken(user._id)
         })
         await user.save()
     }else{

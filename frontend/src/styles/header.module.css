@@ -3,7 +3,7 @@ height: 10vh;
 margin: 0;
 padding: 10px;
 display: flex;
-justify-content: end;
+justify-content: flex-end;
 }
 .button {
     appearance: none;
