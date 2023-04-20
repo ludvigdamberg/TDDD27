@@ -1,5 +1,7 @@
-import React from 'react'
-
+import React,{ useState, useEffect } from 'react'
+import styles from '../styles/styles.module.css'
+import axios from 'axios'
+import Upvote from './Upvote'
 const Posts = () => {
 
   const [posts,setPosts] = useState([])
@@ -27,13 +29,17 @@ const Posts = () => {
     <div>
     <div>{posts.map((post) => {
         return(
-          <div className={styles.posts_container} key={post._id}>
+            <div className={styles.posts_container} key={post._id}>
+            <div className={styles.post_img_container}>
             <img className={styles.img} src={`http://localhost:5000/uploads/${post.photo}`}/>
+            </div>
             <div>
                <h1>{post.name}</h1>
-               <p>{post.description}</p> 
+               <p>Recipe: {post.recipe}</p> 
+               <p>Descrption: {post.description}</p> 
+              
             </div>
-             
+           <Upvote/>     
           </div>
         )
       })}</div>

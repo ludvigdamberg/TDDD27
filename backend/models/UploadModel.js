@@ -5,6 +5,10 @@ const postSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    recipe:{
+        type:String,
+        required:true
+    },
     description:{
         type:String,
         required:true
@@ -13,6 +17,7 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: false
     }
+  
 })
 
 const postModel = mongoose.model("Post",postSchema)
