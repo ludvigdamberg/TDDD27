@@ -23,7 +23,7 @@ const Post = () => {
         formData.append('recipe',recipe)
         formData.append('photo',imageData)
   
-        axios.post("http://localhost:5000/save", 
+        axios.post("http://localhost:5000/post", 
         formData
         )
         
@@ -43,7 +43,7 @@ const Post = () => {
     <div className={styles.post_container}>
       <h1>Make your drink!</h1>
         <input className={styles.post_input1} value={name} onChange={(e) => setName(e.target.value)} placeholder='Title of your drink' type='text'/>
-        <textarea className={styles.post_input2} value={recipe} onChange={(e) => setRecipe(e.target.value)} placeholder='Recipe:' type='text'/>
+        <textarea className={styles.post_input2} value={recipe} onChange={(e) => setRecipe(e.target.value)} placeholder='Recipe' type='text'/>
         <textarea className={styles.post_input2} value={description} onChange={(e) => setDescription(e.target.value)} placeholder='How to make it...' type='text' cols = '40' rows="5"/>
 
         <div className={styles.addpicture}>
