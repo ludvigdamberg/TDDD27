@@ -8,23 +8,27 @@ const SignUp = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [email, setEmail] = useState("")
-
+  const [imageData,setImageData] = useState("")
 
   const handleSignup = () => {
 
 
-    console.log({ email, username, password })
+    console.log({ email, username, password, imageData })
 
-    const config = {
-      headers: {
-        "Content-type": "application/json",
-      },
-    };
+    const formData = new FormData()
+    formData.append('photo',imageData)
+    formData.append('password',password)
+    formData.append('username',username)
+    formData.append('email',email)
+    
 
-    axios.post("http://localhost:5000/register", { email, username, password }, config)
+    console.log({formData})
+
+
+    axios.post("http://localhost:5000/register",formData)
       .then((res) => {
         console.log(res.data)
-      }).catch((err) => console.log(err))
+      })
 
   }
 
@@ -43,6 +47,13 @@ const SignUp = () => {
         <p>Password</p>
         <input type='password' className={styles.input} onChange={(e) => setPassword(e.target.value)} />
       </div>
+      <div className={styles.inputs}>
+      
+           <label className={styles.button} id="button">add image📸
+            <input hidden type="file" id="button" onChange={(e) => setImageData(e.target.files[0])}/>
+          </label>
+      
+        </div>
       <div className={styles.inputs}>
         <button className={styles.button} onClick={handleSignup}>Register</button>
       </div>
