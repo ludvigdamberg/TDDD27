@@ -75,19 +75,17 @@ object-fit: cover;
 }
 
 .Header2{
-    height: 60vh;
+    height: 70vh;
     display: flex;
     justify-content: center;
-    align-items: center;
     background: rgb(49, 117, 121);
     flex-wrap: wrap; /* Add flex-wrap property to allow text to wrap */
 
 }
 .card {
-    flex: 1;
-    margin: 0 45px;
-    max-width: 400px;
-    aspect-ratio: 1/1; /* Set aspect ratio to 1:1 */
+    margin: 40px;
+    width: 500px;
+    height: 500px;
     background: rgb(62, 121, 124);
     border-radius: 10px;
     box-shadow: 0 8px 13px 0 rgba(41, 41, 43, 0.548);

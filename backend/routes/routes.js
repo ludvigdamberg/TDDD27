@@ -68,6 +68,8 @@ router.post("/register", uploadMiddleware.single("photo"),asyncHandler(async (re
     const password =  req.body.password
     const photo = req.file.filename
 
+    console.log({email})
+
     const userExists = await userModel.findOne({email})
 
     if(userExists){

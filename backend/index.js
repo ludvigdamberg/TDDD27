@@ -4,15 +4,19 @@ const cors = require('cors')
 require('dotenv').config()
 const Routes = require('./routes/routes')
 const { errorHandler, notFound } = require('./middlewares/errorMiddleware')
+const checkUserExists = require('./middlewares/MulterMiddleware')
+
 
 
 const app = express()
 
-//Convert data correctly
 app.use(express.json())
 app.use(express.static("public"))
-//Cors is used to connect to the database with react without issues
 app.use(cors())
+app.use(Routes)
+app.use(notFound)
+app.use(errorHandler)
+
 
 const PORT = process.env.PORT || 5000
 
@@ -29,13 +33,7 @@ mongoose.connect(process.env.MONGODB_URI)
  .catch(err => console.log(err))
 
 
-//Routes
 
-app.use(Routes)
-
-//Error functions
-app.use(notFound)
-app.use(errorHandler)
 
 
 

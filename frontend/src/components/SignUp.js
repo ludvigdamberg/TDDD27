@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import axios from 'axios'
 import styles from '../styles/login.module.css'
+import { useNavigate } from "react-router-dom";
 const SignUp = () => {
 
 
@@ -9,7 +10,9 @@ const SignUp = () => {
   const [password, setPassword] = useState("")
   const [email, setEmail] = useState("")
   const [imageData,setImageData] = useState("")
+  const navigate = useNavigate()
 
+  
   const handleSignup = () => {
 
 
@@ -30,6 +33,7 @@ const SignUp = () => {
         console.log(res.data)
       })
 
+      navigate('/login')
   }
 
   return (

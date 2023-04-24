@@ -21,6 +21,12 @@ h1{
   font-family: 'Inter', sans-serif;
   font-weight: bold;
 }
+p{
+  font-family: 'Poppins', sans-serif;
+}
+h2{
+  font-family: 'Poppins', sans-serif;
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
