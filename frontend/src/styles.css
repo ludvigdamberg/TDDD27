@@ -1,0 +1,81 @@
+
+.Header{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(49, 117, 121);
+    color: rgb(255, 255, 255);
+    flex-wrap: wrap; /* Add flex-wrap property to allow text to wrap */
+}
+.Header p{
+    margin: 0;
+    width: 90%;
+    font-size: 110%;
+}
+.Header h1{
+    margin: 0;
+    color: rgb(255, 240, 153);
+    font-size: 350%;
+}
+
+
+.image-container {
+    width: 500px; /* set width of image container */
+    height: 500px; /* set height of image container */
+    border-radius: 50%; /* make image container circular */
+    overflow: hidden;
+  display: flex; /* Add display flex to center image vertically */
+  align-items: center; /* Center image vertically */
+  justify-content: center; /* Center image horizontally */
+  margin: 2px;
+  }
+  
+.image-container img {
+height: 100%;
+width: 100%;
+object-fit: cover;
+
+
+}
+.text-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    width: 40%;
+    
+}
+
+.Header2{
+    width: 100vw;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(49, 117, 121);
+    flex-wrap: wrap; /* Add flex-wrap property to allow text to wrap */
+}
+.card {
+    flex: 1;
+    margin: 0 45px;
+    max-width: 400px;
+    aspect-ratio: 1/1; /* Set aspect ratio to 1:1 */
+    background: rgb(94, 138, 141);
+    border-radius: 10px;
+    box-shadow: 0 8px 13px 0 rgba(41, 41, 43, 0.548);
+    text-align: center;
+    color: rgb(253, 235, 133);
+  }
+  .list{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: rgb(255, 255, 255);
+  }
+  .item{
+    margin-top: 30px;
+    margin-bottom: 15px;
+   
+  }

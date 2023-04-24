@@ -10,6 +10,9 @@ const Header = () => {
    <Link to='/login'>
     <div className={styles.button}>Login</div>
    </Link>
+   <Link to='/feed'>
+    <div className={styles.button}>Feed</div>
+   </Link>
     </div>
   )
 }

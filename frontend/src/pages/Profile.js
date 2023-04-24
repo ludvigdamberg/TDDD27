@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/profile.module.css'
+import Post from '../components/Post'
+import Posts from '../components/Posts'
 const Profile = () => {
 
   const [profileData, setProfileData] = useState()
@@ -87,7 +89,12 @@ const Profile = () => {
           </div>
         </div>
         <div>
-          <h1>Your Posts:</h1>
+          <Post/>
+        </div>
+        <div>
+          <h1>Your Posts:
+            <Posts/>
+          </h1>
         </div>
       </>
     )

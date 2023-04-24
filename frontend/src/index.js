@@ -5,6 +5,7 @@ import App from './App';
 import Register from './pages/Register';
 import  Login  from './pages/Login';
 import Profile from './pages/Profile';
+import Feed from './pages/Feed';
 import { RouterProvider, createBrowserRouter, Route } from 'react-router-dom';
 
 const router  =createBrowserRouter([
@@ -23,6 +24,10 @@ const router  =createBrowserRouter([
     {
         path: '/profile',
         element: <Profile/>
+    },
+    {
+        path: '/feed',
+        element: <Feed/>
     },
 ])
 
