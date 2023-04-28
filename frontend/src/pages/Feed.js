@@ -11,11 +11,14 @@ const Feed = () => {
 
 
 return(
-    <div><Post/>
+
+    <div>
+    <Post/>
     <div className = {styles.container} >
         <Posts/>
     </div>
     </div>
+   
 )
 
 }

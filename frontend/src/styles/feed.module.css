@@ -7,6 +7,8 @@ input{
  :focus::placeholder {
     color: transparent;
   }
+
+
   textarea{
     font-family: 'Poppins', sans-serif;
     text-align: start;
@@ -16,9 +18,9 @@ input{
   .pick_file {
   color: rgb(67, 1, 128);
   font-size: 35px;
-  margin:10px;
- 
-  display: inline;
+  margin-left:30px;
+  margin-top:5px;
+  display: flex;
   justify-content: center;
   align-items: center;
   
@@ -147,7 +149,31 @@ object-fit: cover;
     
     
     
+  }  
+  .deletePost{
+   height: 40px;
+   width:80px;
+   position: relative;
+   margin-top: 25px;
+   margin-left:145px;
+   margin-bottom: 20px;
+
   }
+
+  .deletePost button{
+    background: rgb(136, 14, 14);
+    height: 40px;
+    width:100px;
+    margin: auto;
+    border-radius: 5px;
+    border: none;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    
+  }
+
+  
   .upvote{
     background-color: rgb(25, 100, 100);
     height: 40px;
@@ -162,6 +188,7 @@ object-fit: cover;
     color: white;
     
   }
+
   .upvote button{
     background: rgb(150, 172, 110);
     color: white;
@@ -182,6 +209,16 @@ object-fit: cover;
     -webkit-backdrop-filter: blur(10px);
     border-radius: 10px;
     box-shadow: 0 1px 15px 0 rgba(0, 0, 0, 0.2);
+  }
+  .preview_img_container{
+    width: 60px; /* set width of image container */
+   height: 60px;
+    border-radius: 40%; /* make image container circular */
+    overflow: hidden;
+     /* Add display flex to center image vertically */
+    align-items: center; /* Center image vertically */
+    justify-content: center; /* Center image horizontally */
+    margin-left: 20px;
   }
   .post_img_container{
     width: 300px; /* set width of image container */

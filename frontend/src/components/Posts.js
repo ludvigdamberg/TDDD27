@@ -3,6 +3,7 @@ import styles from '../styles/feed.module.css'
 import{FaSearch } from "react-icons/fa";
 import axios from 'axios'
 import Upvote from './Upvote'
+import DeletePostButton from './DeletePost'
 
 const Posts = () => {
 
@@ -39,6 +40,10 @@ const Posts = () => {
       setResult(e.target.value);
     }
     
+    const handlePostDeleted = (postId) => {
+      setPosts(posts.filter(post => post._id !== postId));
+      
+    };
 
   return (
 
@@ -65,6 +70,7 @@ const Posts = () => {
               
             </div>
                <Upvote/> 
+               <DeletePostButton postId={post._id} onDeleted={() => handlePostDeleted(post._id)}/>
           </div>
         )
       })}</div>

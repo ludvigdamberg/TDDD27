@@ -11,8 +11,18 @@ const Post = () => {
     const [description,setDescription] = useState("")
     const [recipe,setRecipe] = useState("")
     const [imageData,setImageData] = useState('')
+    const [picturePreview, setPicturePreview] = useState(null);
   
-
+    const handlePictureChange = (e) => {
+     const file = e.target.files[0];
+      setImageData(file);
+  
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPicturePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    };
     
     const createPost = () => {
 
@@ -51,7 +61,8 @@ const Post = () => {
         <p >Add a picture here 👉👉:</p>
         <label className={styles.pick_file} htmlFor={styles.file_picker}>
             <AiOutlineCamera/>
-            <input hidden type="file" name={styles.file_picker} id={styles.file_picker} onChange={(e) => setImageData(e.target.files[0])}/>
+            <input hidden type="file" name={styles.file_picker} id={styles.file_picker} onChange={handlePictureChange}/>
+            {picturePreview && <img src={picturePreview} className={styles.preview_img_container} />}
         </label>
         </div>
         <button onClick={createPost}>Upload</button>

@@ -6,7 +6,7 @@ const postSchema = new mongoose.Schema({
         required:true
     },
     recipe:{
-        type:Array(String),
+        type:String,
         required:false
     },
     description:{
@@ -17,6 +17,7 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: false
     }
+
   
 })
 

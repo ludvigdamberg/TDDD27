@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios'
 import styles from '../styles/feed.module.css'
-const Upvote = () => {
+const Upvote = ({postId}) =>{
     const [count, setCount] = useState(0);
+    const [upvotes, setUpvotes] = useState(0);
 
 
     const increment = () => {
@@ -16,6 +17,7 @@ const Upvote = () => {
     if (count<0){
         setCount(0);
     }
+
 
    // const formData = new FormData()
   
