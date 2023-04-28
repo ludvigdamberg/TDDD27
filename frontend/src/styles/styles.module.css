@@ -118,12 +118,12 @@ object-fit: cover;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 10px;
-  box-shadow: 0 8px 23px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 15px 0 rgba(0, 0, 0, 0.2);
   box-align: center;
 }
 .post_container h1{
-  box-align: center;
-  margin-left: 26%;
+  margin: auto;
+  margin-top: 10px;
 }
 .post_input1{
   border: none;
@@ -197,7 +197,7 @@ object-fit: cover;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 10px;
-  box-shadow: 0 8px 23px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 15px 0 rgba(0, 0, 0, 0.2);
 }
 .post_img_container{
   width: 300px; /* set width of image container */

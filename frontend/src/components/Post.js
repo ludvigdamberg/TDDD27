@@ -3,7 +3,7 @@ import { Paper } from '@mui/material'
 import { useState } from 'react'
 import axios from 'axios'
 import {AiOutlineCamera} from 'react-icons/ai'
-import styles from '../styles/styles.module.css'
+import styles from '../styles/feed.module.css'
 
 const Post = () => {
   
@@ -43,6 +43,7 @@ const Post = () => {
     <div className={styles.post_container}>
       <h1>Make your drink!</h1>
         <input className={styles.post_input1} value={name} onChange={(e) => setName(e.target.value)} placeholder='Title of your drink' type='text'/>
+
         <textarea className={styles.post_input2} value={recipe} onChange={(e) => setRecipe(e.target.value)} placeholder='Recipe' type='text'/>
         <textarea className={styles.post_input2} value={description} onChange={(e) => setDescription(e.target.value)} placeholder='How to make it...' type='text' cols = '40' rows="5"/>
 

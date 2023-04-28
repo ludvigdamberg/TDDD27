@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios'
-import styles from '../styles/styles.module.css'
+import styles from '../styles/feed.module.css'
 const Upvote = () => {
     const [count, setCount] = useState(0);
 
@@ -27,12 +27,10 @@ const Upvote = () => {
     return (
         <div className = {styles.upvote}>
             <button className={styles.upvote} onClick={increment}>
-                +
+                🍺
             </button>
              <div>{count}</div>
-            <button className={styles.upvote} onClick={decrement}>
-                -
-            </button>
+           
            
         </div>
     )

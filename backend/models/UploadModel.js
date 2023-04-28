@@ -6,8 +6,8 @@ const postSchema = new mongoose.Schema({
         required:true
     },
     recipe:{
-        type:String,
-        required:true
+        type:Array(String),
+        required:false
     },
     description:{
         type:String,
