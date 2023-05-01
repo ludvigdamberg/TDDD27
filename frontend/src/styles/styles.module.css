@@ -1,16 +1,15 @@
 
 p{
   color:white; 
-   
+     font-family: 'Outfit', sans-serif;
+
 }
 
 input{
-  font-family: 'Poppins', sans-serif;
   text-align: start;
   margin-left:10px;
 }
 textarea{
-  font-family: 'Poppins', sans-serif;
   text-align: start;
   margin-left:10px;
 }
@@ -159,7 +158,6 @@ object-fit: cover;
   height: 80px;
   margin-left: 35%;
   margin-bottom: 25px;
-  font-family: 'Poppins', sans-serif;
   border-radius: 5px;
   
   
@@ -172,7 +170,6 @@ object-fit: cover;
   box-align: center;
   
   font-size: 18px;
-  font-family: 'Poppins', sans-serif;
   border-radius: 5px;
   border: none;
   color: white;

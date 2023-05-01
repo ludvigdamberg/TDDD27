@@ -1,7 +1,6 @@
 .parent{
   display: flex;
   height: 100vh;
-  font-family: 'Poppins', sans-serif;
 }
 .left{
  width: 30%;
@@ -17,7 +16,6 @@
   font-size: 300%;
   color: rgb(255, 240, 153);
   text-align: center;
-  font-family: 'Inter', sans-serif;
 
 }
 .right{
@@ -63,6 +61,7 @@
 .input:hover, .input:focus, .input-group:hover .input {
   outline: none;
   border-color: #05060f;
+  
 }
 
 .input-group:hover .label, .input:focus {
@@ -103,8 +102,8 @@
   touch-action: manipulation;
   will-change: transform;
   margin: 5px;
-  font-family: 'Poppins', sans-serif;
- }
+  font-family: 'Questrial', sans-serif;
+}
  
  .button:disabled {
   pointer-events: none;

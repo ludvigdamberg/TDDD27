@@ -1,10 +1,12 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import styles from '../styles/profile.module.css'
 import Post from '../components/Post'
-import Posts from '../components/Posts'
+import ProfilePosts from '../components/ProfilePosts'
+import Loading from '../components/Loading';
+
 const Profile = () => {
 
   const [profileData, setProfileData] = useState()
@@ -17,8 +19,7 @@ const Profile = () => {
 
     const token = localStorage.getItem('token');
     if (!token) {
-      setIsLoggedIn(false);
-      navigate('/login');
+      logout()
       return;
     }
     const response = await axios.get('http://localhost:5000/profile', {
@@ -27,8 +28,7 @@ const Profile = () => {
       setIsLoggedIn(true);
     }).catch(err => {
       localStorage.removeItem("token")
-      setIsLoggedIn(false)
-      navigate('/login')
+      logout()
     })
   }
 
@@ -45,26 +45,31 @@ const Profile = () => {
       }
     }).then((res) => {
       setProfileData(res.data);
-      console.log(profileData)
+
     }).catch(err => console.log(err))
 
     setLoading(false)
+  }
 
-
+  const logout = () => {
+    localStorage.removeItem("token")
+    setIsLoggedIn(false)
+    navigate('/')
   }
 
   useEffect(() => {
     checkLoggedIn()
     fetchProfile()
 
-
   }, [])
 
   if (!profileData) {
     return (
-      <div>Loading...</div>
+     <Loading/>
     )
   } else if (profileData) {
+    console.log(profileData)
+
     return (
       <>
         <div className={styles.header}>
@@ -72,30 +77,37 @@ const Profile = () => {
           <h3>Redirect through these links 👍</h3>
 
           <div className={styles.text_container}>
-            <h3>Discover</h3>
+            <Link to='/feed'>
+              <div className={styles.button}>discover</div>
+            </Link>
+
+
             <h3>|</h3>
-            <h3>Settings</h3>
+            <Link to='/'>
+              <div className={styles.button}>home</div>
+            </Link>
             <h3>|</h3>
-            <h3>Log out</h3>
+
+            <div className={styles.button} onClick={logout}>log out</div>
+
           </div>
         </div>
         <div className={styles.profile}>
           <img className={styles.picture} src={`http://localhost:5000/uploads/${profileData.photo}`} />
           <h2>{profileData.username}</h2>
-          <h3>{profileData.email}</h3>
+          <p>{profileData.email}</p>
           <div className={styles.text_container}>
             <h3>Posts: 0</h3>
             <h3>Upvotes: 0</h3>
           </div>
         </div>
         <div>
-          <Post/>
         </div>
         <div>
-          <h1>Your Posts:
-            <Posts/>
-          </h1>
-        </div>
+         
+        </div> <h1>Your Posts:</h1>
+            <ProfilePosts />
+          
       </>
     )
   }

@@ -1,74 +1,147 @@
 import React from 'react'
-import { Paper } from '@mui/material'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
-import {AiOutlineCamera} from 'react-icons/ai'
+import { AiOutlineCamera } from 'react-icons/ai'
 import styles from '../styles/feed.module.css'
+import { useNavigate } from 'react-router-dom'
+import jwt_decode from 'jwt-decode';
+import { isLoggedIn } from '../functions/Functions'
 
 const Post = () => {
-  
-    const [name,setName] = useState("")
-    const [description,setDescription] = useState("")
-    const [recipe,setRecipe] = useState("")
-    const [imageData,setImageData] = useState('')
-    const [picturePreview, setPicturePreview] = useState(null);
-  
-    const handlePictureChange = (e) => {
-     const file = e.target.files[0];
-      setImageData(file);
-  
-      const reader = new FileReader();
-      reader.onload = () => {
-        setPicturePreview(reader.result);
-      };
-      reader.readAsDataURL(file);
+
+  const [name, setName] = useState("")
+  const [description, setDescription] = useState("")
+  const [ingredient, setIngredient] = useState("")
+  const [imageData, setImageData] = useState("")
+  const [picturePreview, setPicturePreview] = useState(null);
+  const [recipe, setRecipe] = useState([])
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+  const [profileData, setProfileData] = useState()
+
+
+  const checkLoggedIn = async () => {
+
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setIsLoggedIn(false);
+      navigate('/login');
+      return;
+    }
+    const response = await axios.get('http://localhost:5000/profile', {
+      headers: { Authorization: `Bearer ${token}` },
+    }).then((res) => {
+      setIsLoggedIn(true);
+    }).catch(err => {
+      localStorage.removeItem("token")
+      setIsLoggedIn(false)
+      navigate('/login')
+    })
+  }
+
+  const get_profile = () => {
+
+
+
+    const token = localStorage.getItem('token');
+
+    axios.get('http://localhost:5000/profile', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(res => {
+        setProfileData(res.data)
+      })
+
+    console.log(profileData)
+
+  }
+
+  useEffect(() => {
+    checkLoggedIn()
+    get_profile()
+
+
+  }, [])
+
+  const add_ingredient = () => {
+
+    setRecipe([...recipe, ingredient])
+
+
+
+  }
+
+  const handlePictureChange = (e) => {
+    const file = e.target.files[0];
+    setImageData(file);
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      setPicturePreview(reader.result);
     };
-    
-    const createPost = () => {
+    reader.readAsDataURL(file);
+  };
 
-        const formData = new FormData()
-  
-        formData.append('name',name)
-        formData.append('description',description)
-        formData.append('recipe',recipe)
-        formData.append('photo',imageData)
-  
-        axios.post("http://localhost:5000/post", 
-        formData
-        )
-        
-        .then((res) => {
-         console.log(res.data)
-        }).catch(err=> console.log(err))
-        console.log(imageData)
-        
-      }
+  const createPost = () => {
 
-      const paper = {
-        height: '30vh',
-        width: '50vw',
-    
-      }
-    return (
+    const formData = new FormData()
+    const token = localStorage.getItem('token');
+    const decodedToken = jwt_decode(token);
+    const author = decodedToken.userId;
+    const profilePicture = profileData.photo
+    const profileName = profileData.username
+    console.log(profilePicture)
+    console.log(profileName)
+
+
+    formData.append('name', name)
+    formData.append('recipe', recipe)
+    formData.append('description', description)
+    formData.append('author', author)
+    formData.append('profilePicture', profilePicture)
+    formData.append('profileName', profileName)
+    formData.append('photo', imageData)
+
+
+
+
+    axios.post("http://localhost:5000/post", formData)
+      .then((res) => {
+        console.log(res.data)
+      }).catch(err => console.log(err))
+
+
+  }
+
+
+  return (
     <div className={styles.post_container}>
       <h1>Make your drink!</h1>
-        <input className={styles.post_input1} value={name} onChange={(e) => setName(e.target.value)} placeholder='Title of your drink' type='text'/>
+      <input className={styles.post_input1} onChange={(e) => setName(e.target.value)} placeholder='Title of your drink' type='text' />
 
-        <textarea className={styles.post_input2} value={recipe} onChange={(e) => setRecipe(e.target.value)} placeholder='Recipe' type='text'/>
-        <textarea className={styles.post_input2} value={description} onChange={(e) => setDescription(e.target.value)} placeholder='How to make it...' type='text' cols = '40' rows="5"/>
+      <textarea className={styles.post_input2} onChange={(e) => setIngredient(e.target.value)} placeholder='Ingredient' type='text' />
+      <button className={styles.button} onClick={add_ingredient}>add ingredient</button>
+      <div className={styles.tag_container}>
+        <ul>{recipe.map((item, index) => (
+          <li key={index} >{item}</li>
+        ))}</ul>
+      </div>
+      <textarea className={styles.post_input2} value={description} onChange={(e) => setDescription(e.target.value)} placeholder='How to make it...' type='text' cols='40' rows="5" />
 
-        <div className={styles.addpicture}>
+      <div className={styles.addpicture}>
         <p >Add a picture here 👉👉:</p>
         <label className={styles.pick_file} htmlFor={styles.file_picker}>
-            <AiOutlineCamera/>
-            <input hidden type="file" name={styles.file_picker} id={styles.file_picker} onChange={handlePictureChange}/>
-            {picturePreview && <img src={picturePreview} className={styles.preview_img_container} />}
+          <AiOutlineCamera />
+          <input hidden type="file" name={styles.file_picker} id={styles.file_picker} onChange={handlePictureChange} />
+          {picturePreview && <img src={picturePreview} className={styles.preview_img_container} />}
         </label>
-        </div>
-        <button onClick={createPost}>Upload</button>
+      </div>
+      <button onClick={createPost}>Upload</button>
 
-        
-        
+
+
     </div>
   )
 }

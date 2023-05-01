@@ -15,7 +15,7 @@ return(
     <div>
     <Post/>
     <div className = {styles.container} >
-        <Posts/>
+    <Posts/>
     </div>
     </div>
    

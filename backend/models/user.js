@@ -18,6 +18,11 @@ password:{
     type:String,
     required: true
 },
+posts: {
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "post",
+    required: false
+},
 photo:{
     type: String,
     required: false

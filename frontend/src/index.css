@@ -1,12 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;900&display=swap');
+
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
   box-sizing: border-box;
   background: rgb(49, 117, 121);
   color: white;
-
+  font-family: 'Outfit', sans-serif;
 }
 .img{
   margin-top: 10px;
@@ -22,10 +24,14 @@ h1{
   font-weight: bold;
 }
 p{
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Outfit', sans-serif;
 }
 h2{
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Outfit', sans-serif;
+}
+h3{
+  font-family: 'Outfit', sans-serif;
+
 }
 
 code {
