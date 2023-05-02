@@ -1,0 +1,13 @@
+.footer{
+height: 30vh;
+width: 100vw;
+background-color: rgb(158, 201, 238);
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+grid-gap: 20px;
+padding: 20px;
+}
+.footer_section{
+text-align: center;
+font-size: 16px;    
+}

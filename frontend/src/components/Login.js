@@ -1,7 +1,6 @@
 import React from 'react'
 import {useState, useRef, useEffect} from 'react'
 import axios from 'axios'
-
 const Login = () => {
 
   const userRef = useRef();
@@ -37,13 +36,6 @@ const Login = () => {
 
   return (
     <> 
-        {success ? (
-            <section>
-                <h1>You are logged in!</h1>
-                <br />
-              
-            </section>
-        ) : (
     <div>
        <p ref={errRef} className = {errMsg ? "errmsg" : "offscreen"}
             aria-live = "assertive">{errMsg}</p>
@@ -70,7 +62,7 @@ const Login = () => {
         <button onClick={handleLogin}>Sign in</button>
 
     </div>
-        )}
+        
         </>
   )
 }

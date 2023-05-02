@@ -1,7 +1,7 @@
 
 p{
-  color:white; 
-     font-family: 'Outfit', sans-serif;
+  color:rgb(240, 240, 240); 
+  font-family: 'Outfit', sans-serif;
 
 }
 
@@ -18,8 +18,8 @@ textarea{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(49, 117, 121);
-    color: rgb(255, 255, 255);
+    background-color: rgb(60, 72, 107);
+    color: rgb(240, 240, 240);
     flex-wrap: wrap; /* Add flex-wrap property to allow text to wrap */
 }
 .Header p{
@@ -34,7 +34,6 @@ textarea{
 }
 
 .pick_file {
-  color: rgb(67, 1, 128);
   font-size: 35px;
   margin:10px;
  
@@ -77,25 +76,29 @@ object-fit: cover;
     height: 70vh;
     display: flex;
     justify-content: center;
-    background: rgb(49, 117, 121);
+    background: rgb(60, 72, 107);
     flex-wrap: wrap; /* Add flex-wrap property to allow text to wrap */
 
 }
 .card {
-    margin: 40px;
-    width: 500px;
-    height: 500px;
-    background: rgb(62, 121, 124);
+    margin: 30px;
+    width: 350px;
+    height: 350px;
+    color: rgb(240, 240, 240);
     border-radius: 10px;
     box-shadow: 0 8px 13px 0 rgba(41, 41, 43, 0.548);
     text-align: center;
-    color: rgb(255, 240, 153);
+    background: rgb(60, 72, 107);
+  }
+  .card h1{
+   
+    color: rgb(240, 240, 240);
   }
   .list{
   list-style: none;
   padding: 0;
   margin: 0;
-  color: rgb(255, 255, 255);
+  background: rgb(60, 72, 107);
   font-size: 120%;
   
 }

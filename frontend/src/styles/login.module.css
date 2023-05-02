@@ -2,6 +2,31 @@
   display: flex;
   height: 100vh;
 }
+.arrow{
+  position: absolute;
+  justify-self: left;
+  margin: 15px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgb(49, 117, 121);
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 400ms;
+  color: rgb(255, 240, 153);
+}
+.arrow:hover{
+  width: 42px;
+  height: 42px;
+  
+}
+.arrow a{
+  color: yellow;
+  
+}
 .left{
  width: 30%;
  background: rgb(49, 117, 121);
