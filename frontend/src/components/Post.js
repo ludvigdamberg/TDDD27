@@ -6,6 +6,7 @@ import styles from '../styles/feed.module.css'
 import { useNavigate } from 'react-router-dom'
 import jwt_decode from 'jwt-decode';
 import { isLoggedIn } from '../functions/Functions'
+import buttons from '../styles/buttons.module.css'
 
 const Post = () => {
 
@@ -54,7 +55,6 @@ const Post = () => {
         setProfileData(res.data)
       })
 
-    console.log(profileData)
 
   }
 
@@ -118,27 +118,31 @@ const Post = () => {
 
   return (
     <div className={styles.post_container}>
-      <h1>Make your drink!</h1>
-      <input className={styles.post_input1} onChange={(e) => setName(e.target.value)} placeholder='Title of your drink' type='text' />
-
-      <textarea className={styles.post_input2} onChange={(e) => setIngredient(e.target.value)} placeholder='Ingredient' type='text' />
-      <button className={styles.button} onClick={add_ingredient}>add ingredient</button>
-      <div className={styles.tag_container}>
-        <ul>{recipe.map((item, index) => (
-          <li key={index} >{item}</li>
-        ))}</ul>
+      <div className={styles.post_header}>
+        <h1>Make your drink!</h1>
       </div>
-      <textarea className={styles.post_input2} value={description} onChange={(e) => setDescription(e.target.value)} placeholder='How to make it...' type='text' cols='40' rows="5" />
 
-      <div className={styles.addpicture}>
-        <p >Add a picture here 👉👉:</p>
-        <label className={styles.pick_file} htmlFor={styles.file_picker}>
-          <AiOutlineCamera />
-          <input hidden type="file" name={styles.file_picker} id={styles.file_picker} onChange={handlePictureChange} />
-          {picturePreview && <img src={picturePreview} className={styles.preview_img_container} />}
-        </label>
+
+      <div className={styles.input_fields}>
+        <input className={styles.post_input1} onChange={(e) => setName(e.target.value)} placeholder='Title of your drink' type='text' />
+
+        <input className={styles.post_input1} onChange={(e) => setIngredient(e.target.value)} placeholder='Ingredient' type='text' />
+        <button className={buttons.button2} onClick={add_ingredient}>add ingredient</button>
+        <div className={styles.tag_container}>
+          <ul>{recipe.map((item, index) => (
+            <li key={index} >{item}</li>
+          ))}</ul>
+        </div>
+        <textarea className={styles.post_input2} value={description} onChange={(e) => setDescription(e.target.value)} placeholder='How to make it...' type='text' cols='40' rows="5" />
+
+       
+          <label  className={buttons.button2} id="button">add image
+            <input hidden type="file" id="button" onChange={(e) => handlePictureChange(e)}/>
+          </label>
+       
+       
       </div>
-      <button onClick={createPost}>Upload</button>
+          <button className={buttons.button2} onClick={createPost}>Upload</button>
 
 
 

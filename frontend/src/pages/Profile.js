@@ -6,7 +6,8 @@ import styles from '../styles/profile.module.css'
 import Post from '../components/Post'
 import ProfilePosts from '../components/ProfilePosts'
 import Loading from '../components/Loading';
-
+import { FaArrowLeft } from 'react-icons/fa';
+import buttons from '../styles/buttons.module.css'
 const Profile = () => {
 
   const [profileData, setProfileData] = useState()
@@ -73,22 +74,23 @@ const Profile = () => {
     return (
       <>
         <div className={styles.header}>
+        <div className={buttons.arrow}><Link to='/'><FaArrowLeft /></Link></div>
           <h1>Welcome to your profile page</h1>
-          <h3>Redirect through these links 👍</h3>
+          <p>Redirect through these links</p>
 
           <div className={styles.text_container}>
-            <Link to='/feed'>
-              <div className={styles.button}>discover</div>
+            <Link style={{ textDecoration:'none'}} to='/feed'>
+              <div className={buttons.button}>discover</div>
             </Link>
 
 
             <h3>|</h3>
-            <Link to='/'>
-              <div className={styles.button}>home</div>
+            <Link style={{ textDecoration:'none'}} to='/'>
+              <div className={buttons.button}>home</div>
             </Link>
             <h3>|</h3>
 
-            <div className={styles.button} onClick={logout}>log out</div>
+            <div className={buttons.button} onClick={logout}>log out</div>
 
           </div>
         </div>

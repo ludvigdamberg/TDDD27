@@ -19,10 +19,10 @@ const Landing = () => {
         <div className={styles.card}>
             <h1>Functionality 🍺</h1>
             <ul className={styles.list}>
-           <li className={styles.item}>Creating Posts ✅ </li>
-           <li className={styles.item}>Account Sign Up ✅ </li>
-           <li className={styles.item}>Logging In  ✅</li>
-           <li className={styles.item}>Authentication Checking ✅</li>
+           <li className={styles.item}>Creating Posts  </li>
+           <li className={styles.item}>Account Sign Up  </li>
+           <li className={styles.item}>Logging In  </li>
+           <li className={styles.item}>Authentication Checking </li>
            <li className={styles.item}>Post filtering and priority</li>
            </ul>
         </div>
@@ -30,10 +30,10 @@ const Landing = () => {
             <h1>Pages🍺</h1>
             <ul className={styles.list}>
            <li className={styles.item}>Home </li>
-           <li className={styles.item}>Profile ✅</li>
+           <li className={styles.item}>Profile </li>
            <li className={styles.item}>Discover </li>
-           <li className={styles.item}>Log In and Sign Up ✅</li>
-           <li className={styles.item}>Crate Post ✅</li>
+           <li className={styles.item}>Log In and Sign Up </li>
+           <li className={styles.item}>Crate Post </li>
            </ul>
         </div>
         <div className={styles.card}>

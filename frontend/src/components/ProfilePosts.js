@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import styles from '../styles/feed.module.css'
 import { FaSearch } from "react-icons/fa";
 import axios from 'axios'
-import Upvote from './Upvote'
 import jwt_decode from 'jwt-decode';
 import Loading from './Loading';
 
@@ -22,7 +21,6 @@ const ProfilePosts = () => {
 
         const token = localStorage.getItem('token');
         const decodedToken = jwt_decode(token);
-
         const author = decodedToken.userId;
 
         console.log(decodedToken.userId)
@@ -57,42 +55,44 @@ const ProfilePosts = () => {
     if (loading) {
         return (
             <div>
-               <Loading/>
+                <Loading />
             </div>
         )
     } else
-    return (
-        <div className={styles.container}>
-            <div>{posts.map((post) => {
-                return (
-                    <div className={styles.posts_container} key={post._id}>
-                        <div className={styles.post_img_container}>
-                            <img className={styles.img} src={`http://localhost:5000/uploads/${post.photo}`} />
-                        </div>
-                        <div>
-                            <h1>{post.name}</h1>
-                            <div >
-                                <h3>Recipe:</h3>
-                                <div className={styles.tag_container}>
-                                    <ul>
-                                        {post.recipe[0].split(',').map((ingredient, index) => (
-                                            <li key={index}>
-                                                {ingredient}
-                                            </li>
-                                        ))}
-                                    </ul>
+        return (
+            <div className={styles.container}>
+                <div>{posts.map((post) => {
+                    return (
+                        <div className={styles.wrapper}>
+                            <div className={styles.posts_container} key={post._id}>
+                                <div className={styles.post_img_container}>
+                                    <img className={styles.img} src={`http://localhost:5000/uploads/${post.photo}`} />
+                                </div>
+                                <div>
+                                    <h1>{post.name}</h1>
+                                    <div >
+                                        <h3>Recipe:</h3>
+                                        <div className={styles.tag_container}>
+                                            <ul>
+                                                {post.recipe[0].split(',').map((ingredient, index) => (
+                                                    <li key={index}>
+                                                        {ingredient}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div className={styles.description}>Description: <p>{post.description}</p> </div>
+
                                 </div>
                             </div>
-
-                            <div className={styles.description}>Description: <p>{post.description}</p> </div>
                             <button className={styles.delete} onClick={() => deletePost(post.photo, post._id)}>delete</button>
                         </div>
-                        <Upvote />
-                    </div>
-                )
-            })}</div>
-        </div>
-    )
+                    )
+                })}</div>
+            </div>
+        )
 }
 
 export default ProfilePosts

@@ -1,8 +1,6 @@
 
 p{
-  color:rgb(240, 240, 240); 
   font-family: 'Outfit', sans-serif;
-
 }
 
 input{
@@ -18,8 +16,8 @@ textarea{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(60, 72, 107);
-    color: rgb(240, 240, 240);
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
     flex-wrap: wrap; /* Add flex-wrap property to allow text to wrap */
 }
 .Header p{
@@ -29,7 +27,7 @@ textarea{
 }
 .Header h1{
     margin: 0;
-    color: rgb(255, 240, 153);
+    color: #000000;
     font-size: 350%;
 }
 
@@ -76,29 +74,31 @@ object-fit: cover;
     height: 70vh;
     display: flex;
     justify-content: center;
-    background: rgb(60, 72, 107);
+    background: #ffffff;
     flex-wrap: wrap; /* Add flex-wrap property to allow text to wrap */
 
 }
 .card {
     margin: 30px;
-    width: 350px;
-    height: 350px;
-    color: rgb(240, 240, 240);
-    border-radius: 10px;
+    width: 400px;
+    height: 450px;
+    margin: auto;
+    color: rgb(0, 0, 0);
+    border-radius: 5px;
+    border: solid 3px black;
     box-shadow: 0 8px 13px 0 rgba(41, 41, 43, 0.548);
     text-align: center;
-    background: rgb(60, 72, 107);
+    background: #ffffff;
   }
   .card h1{
-   
-    color: rgb(240, 240, 240);
+   font-size: 250%;
+    color: #000000;
   }
   .list{
   list-style: none;
   padding: 0;
   margin: 0;
-  background: rgb(60, 72, 107);
+  background: #ffffff;
   font-size: 120%;
   
 }
@@ -144,7 +144,7 @@ object-fit: cover;
   background-color: rgb(26, 100, 100);
   width: 500px;
   height: 100px;
-  color: rgb(250, 250, 250);
+  color: rgb(0, 0, 0);
   outline: none;
   margin-left: 50px;
   margin-bottom: 10px;
@@ -153,7 +153,7 @@ object-fit: cover;
 }
 .post_container button{
   background: rgb(150, 172, 110);
-  color: white;
+  color: rgb(0, 0, 0);
   font-weight: bold;
   font-size: 18px;
   border: none;

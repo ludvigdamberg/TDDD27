@@ -26,6 +26,10 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    upvotes: {
+        type: [String],
+        required: false
+    },
     photo: {
         type: String,
         required: true

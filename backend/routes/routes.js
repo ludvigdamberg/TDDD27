@@ -98,15 +98,60 @@ router.post("/post", uploadMiddleware.single("photo"), (req, res) => {
 //Get posts
 router.get('/posts', async (req, res) => {
 
-  const posts = await postModel.find()
-  res.send(posts)
+
+
+  const loads = req.headers.loads
+
+console.log(loads)
+
+  if (req.headers.search.length == 0) {
+    const posts = await postModel.find().limit(loads*2).exec()
+    return res.send(posts)
+
+  } else if(req.headers.search.length > 0){
+
+    const search = req.headers.search; // Get the search query from the request query parameters
+
+    console.log(search)
+    const posts = await postModel.find({
+      $or: [
+        { name: { $regex: search, $options: "i" } },
+        { recipe: { $regex: search, $options: "i" } }
+        // add as many components as needed
+      ],
+    }).limit(loads*2).exec()
+    
+    return res.send(posts)
+    
+  }
+ 
+
+
+})
+router.get('/search', async (req, res) => {
+ 
+
+    const search = req.headers.search; // Get the search query from the request query parameters
+
+    console.log(search)
+    const posts = await postModel.find({
+      $or: [
+        { name: { $regex: searchString, $options: "i" } },
+        { recipe: { $regex: searchString, $options: "i" } }
+        // add as many components as needed
+      ],
+    })
+    
+    return res.send(posts)
+     
+
 })
 
 
 //get profile posts
 router.get('/profilePosts', async (req, res) => {
 
-const userId = req.headers.author
+  const userId = req.headers.author
 
   postModel.find({ author: userId })
     .populate('author')
@@ -115,7 +160,6 @@ const userId = req.headers.author
       res.json(posts)
 
     })
-
 })
 
 //fetch profile
@@ -143,21 +187,59 @@ router.get('/profile', (req, res) => {
 });
 
 router.post('/deletePost', async (req, res) => {
- 
+
 
   const deletedPost = await postModel.findByIdAndDelete(req.body.id)
 
-  if(!deletedPost){
+  if (!deletedPost) {
     return res("Post not found")
-  }else{
+  } else {
     res.json("Post deleted successfully")
-     fs.unlinkSync(`./public/uploads/${req.body.image}`)
+    fs.unlinkSync(`./public/uploads/${req.body.image}`)
   }
 
- 
+
 
 })
 
+
+// adding user id to upvote list
+router.put('/upvote', async (req, res) => {
+
+  console.log(req.body)
+
+  const post = await postModel.findById(req.body.post_id)
+
+  if (!post) {
+    return res.json("Not a valid post")
+  }
+
+  if (post.upvotes.includes(req.body.upvote)) {
+
+
+    const carIndex = post.upvotes.indexOf(req.body.upvote)
+    post.upvotes.splice(req.body.upvote, 1)
+    await post.save()
+    return res.json("upvote deleted")
+  }
+
+  post.upvotes.push(req.body.upvote)
+  await post.save()
+
+  res.send(post)
+
+})
+
+router.get("/api/posts/search", (req, res) => {
+  const search = req.headers.search; // Get the search query from the request query parameters
+  postModel.find({ $text: { $search: search } }, (err, posts) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send("Internal server error");
+    }
+    return res.json(posts); // Send the matching posts back to the frontend
+  });
+});
 
 
 
