@@ -1,7 +1,7 @@
 const express = require('express')
 const { Router } = require('express')
 const userModel = require('../models/user')
-const postModel = require('../models/UploadModel')
+const postModel = require('../models/post')
 const uploadMiddleware = require('../middlewares/MulterMiddleware')
 const multer = require('multer')
 const generateToken = require('../utils/generateToken')
@@ -10,6 +10,7 @@ const router = Router()
 const auth = require('../middlewares/auth')
 const jwt = require('jsonwebtoken');
 const fs = require('fs')
+const commentModel = require('../models/comment')
 
 
 require('dotenv').config()
@@ -97,8 +98,6 @@ router.post("/post", uploadMiddleware.single("photo"), (req, res) => {
 
 //Get posts
 router.get('/posts', async (req, res) => {
-
-
 
   const loads = req.headers.loads
 
@@ -210,6 +209,8 @@ router.put('/upvote', async (req, res) => {
 
   const post = await postModel.findById(req.body.post_id)
 
+  console.log(post)
+
   if (!post) {
     return res.json("Not a valid post")
   }
@@ -217,16 +218,17 @@ router.put('/upvote', async (req, res) => {
   if (post.upvotes.includes(req.body.upvote)) {
 
 
-    const carIndex = post.upvotes.indexOf(req.body.upvote)
-    post.upvotes.splice(req.body.upvote, 1)
+    const index = post.upvotes.indexOf(req.body.upvote)
+    post.upvotes.splice(index, 1)
     await post.save()
     return res.json("upvote deleted")
+  }else{
+     post.upvotes.push(req.body.upvote)
+      await post.save()
+      res.send(post)
   }
 
-  post.upvotes.push(req.body.upvote)
-  await post.save()
-
-  res.send(post)
+ 
 
 })
 
@@ -241,6 +243,46 @@ router.get("/api/posts/search", (req, res) => {
   });
 });
 
+router.post("/comment", (req, res) => {
+
+  console.log(req.body)
+
+  const comment = new commentModel(
+    {
+      profile_name: req.body.profile_name,
+      profile_picture: req.body.profile_picture,
+      comment: req.body.comment,
+    })
+  comment.save()
+    .then(console.log("comment saved successfully"))
+    res.send(comment)
+
+})
+
+router.put('/savecomment', async (req, res) => {
+
+  console.log(req.body)
+
+  const post = await postModel.findById(req.body.post_id)
+
+  console.log(post)
+
+  if (!post) {
+    return res.json("Not a valid post")
+  }else{
+
+    const comment = req.body.comment_id
+
+    console.log(comment)
+
+    //post.comments.push(comment)
+
+    //await post.save()
+  }
+
+ 
+
+})
 
 
 module.exports = router

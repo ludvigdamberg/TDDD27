@@ -5,6 +5,8 @@ import axios from 'axios'
 import Loading from './Loading'
 import jwt_decode from 'jwt-decode';
 import buttons from '../styles/buttons.module.css'
+
+
 const Posts = () => {
 
   const [posts, setPosts] = useState([])
@@ -13,8 +15,26 @@ const Posts = () => {
   const [loads, setLoads] = useState(1)
   const [search, setSearch] = useState("")
   const [searchChange, setSearchChange] = useState()
+  const [profileData, setProfileData] = useState()
+  const [comment, setComment] = useState("")
+  const [comment_id, setComment_id] = useState()
+
+  const get_profile = () => {
 
 
+    const token = localStorage.getItem('token');
+
+    axios.get('http://localhost:5000/profile', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(res => {
+        setProfileData(res.data)
+
+      })
+    setLoading(false)
+  }
 
   const loadPosts = () => {
 
@@ -31,8 +51,10 @@ const Posts = () => {
   useEffect(() => {
 
     loadPosts()
-
+    get_profile()
   }, [])
+
+  
 
 
   const handleChange = (e) => {
@@ -58,6 +80,37 @@ const Posts = () => {
 
   }
 
+  const handleComment = (id) => {
+
+    console.log(profileData)
+
+    console.log(id)
+
+    axios.post("http://localhost:5000/comment", { profile_name: profileData.username, profile_picture: profileData.photo, comment: comment })
+      .then((res) => {
+        console.log(res.data)
+        setComment_id(res.data._id)
+      }).catch(err => console.log(err))
+
+
+      
+      save_comment(id)
+  }
+
+  const save_comment = (id) => {
+
+   
+
+  
+      console.log(comment_id)
+
+      axios.put("http://localhost:5000/savecomment", {post_id: id, comment_id: comment_id })
+      .then((res) => {
+        console.log(res.data)
+
+      }).catch(err => console.log(err))
+
+  }
 
   if (loading) {
     return (
@@ -77,43 +130,51 @@ const Posts = () => {
         onChange={(e) => handleChange(e)}
       />
       <button className={buttons.button2} onClick={loadPosts}>Search</button>
-      <div>{posts.map((post) => {
+      <div>{posts.map((post, index) => {
         return (
-          <>
+          <div key={post._id}>
             <div className={styles.posts_header}>
-              <img className={styles.img} src={`http://localhost:5000/uploads/${post.profile_picture}`} />
+              <img className={styles.posts_header_img} src={`http://localhost:5000/uploads/${post.profile_picture}`} />
               <p>{post.profile_name}</p>
-                
+
               <button className={styles.upvote} onClick={() => handleUpvote(post._id)}>Upvotes: {post.upvotes.length}</button>
-              
+
             </div>
             <div className={styles.posts_container} key={post._id}>
-              <div className={styles.post_img_container}>
-                <img className={styles.img} src={`http://localhost:5000/uploads/${post.photo}`} />
-              </div>
-              <div>
-                <h2>{post.name}</h2>
-                <div >
-                  <h3>Recipe:</h3>
-                  <div className={styles.tag_container}>
-                    <ul>
-                      {post.recipe[0].split(',').map((ingredient, index) => (
-                        <li key={index}>
-                          {ingredient}
-                        </li>
 
-                      ))}
-                    </ul>
+              <div className={styles.grid_container}>
+                <div className={styles.post_img_container}>
+                  <img className={styles.img} src={`http://localhost:5000/uploads/${post.photo}`} />
+                </div>
+                <div>
+                  <h2>{post.name}</h2>
+                  <div >
+                    <h3>Recipe:</h3>
+                    <div className={styles.tag_container}>
+                      <ul>
+                        {post.recipe[0].split(',').map((ingredient, index) => (
+                          <li key={index}>
+                            {ingredient}
+                          </li>
+
+                        ))}
+                      </ul>
+
+                    </div>
                   </div>
                 </div>
-
-                <div className={styles.description}><p>Description: {post.description}</p> </div>
-
+                <div>
+                  <div className={styles.description}><h3>Description:</h3>{post.description} </div>
+                </div>
               </div>
 
-
+             
             </div>
-          </>
+  <div>
+                  <input type='text' className={styles.input} onChange={(e) => setComment(e.target.value)} />
+                  <button onClick={() => handleComment(post._id)} className={buttons.button2} >Comment</button>
+                </div>
+          </div>
         )
       })}</div>
       <button onClick={loadPosts} className={buttons.button2} >Load 2 more</button>
