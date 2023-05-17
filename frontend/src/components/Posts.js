@@ -17,7 +17,8 @@ const Posts = () => {
   const [searchChange, setSearchChange] = useState()
   const [profileData, setProfileData] = useState()
   const [comment, setComment] = useState("")
-  const [comment_id, setComment_id] = useState()
+  const [commentData, setCommentData] = useState()
+  const [showComments, setShowComments] = useState(false)
 
   const get_profile = () => {
 
@@ -61,7 +62,6 @@ const Posts = () => {
 
     setSearch(e.target.value)
     setLoads(1)
-    console.log(searchChange)
   }
 
   const handleUpvote = (id) => {
@@ -70,7 +70,6 @@ const Posts = () => {
     const decodedToken = jwt_decode(token);
 
     const author = decodedToken.userId;
-    console.log(id)
 
     axios.put("http://localhost:5000/upvote", { upvote: author, post_id: id })
       .then((res) => {
@@ -82,19 +81,18 @@ const Posts = () => {
 
   const handleComment = (id) => {
 
-    console.log(profileData)
-
-    console.log(id)
-
     axios.post("http://localhost:5000/comment", { profile_name: profileData.username, profile_picture: profileData.photo, comment: comment })
       .then((res) => {
-        console.log(res.data)
-        setComment_id(res.data._id)
-      }).catch(err => console.log(err))
-
-
+       console.log(res.data._id)
       
-      save_comment(id)
+       axios.put("http://localhost:5000/savecomment", {post_id: id, comment_id: res.data._id })
+       .then((res) => {
+         console.log(res.data)
+ 
+       }).catch(err => console.log(err))
+
+      }).catch(err => console.log(err))
+  
   }
 
   const save_comment = (id) => {
@@ -102,13 +100,13 @@ const Posts = () => {
    
 
   
-      console.log(comment_id)
+      console.log(commentData)
 
-      axios.put("http://localhost:5000/savecomment", {post_id: id, comment_id: comment_id })
+   /*   axios.put("http://localhost:5000/savecomment", {post_id: id, comment_id: comment_id._id })
       .then((res) => {
         console.log(res.data)
 
-      }).catch(err => console.log(err))
+      }).catch(err => console.log(err))*/
 
   }
 
@@ -119,7 +117,6 @@ const Posts = () => {
       </div>
     )
   } else
-    console.log(posts)
   return (
 
 
@@ -159,20 +156,31 @@ const Posts = () => {
 
                         ))}
                       </ul>
-
+                    
                     </div>
                   </div>
                 </div>
                 <div>
                   <div className={styles.description}><h3>Description:</h3>{post.description} </div>
                 </div>
+              
               </div>
 
              
             </div>
   <div>
-                  <input type='text' className={styles.input} onChange={(e) => setComment(e.target.value)} />
-                  <button onClick={() => handleComment(post._id)} className={buttons.button2} >Comment</button>
+                  <input type='text' className={styles.comment_input} onChange={(e) => setComment(e.target.value)} />
+                  <button onClick={() => handleComment(post._id)} className={styles.comment_button} >Comment</button>
+                  <div className={styles.comments}>
+                    {showComments ? (
+                    <div >HELLO
+                      <button onClick={() => setShowComments(false)}>hide comments</button>
+                    </div>
+                    
+                ) : (
+                    <> <button onClick={() => setShowComments(true)}>show comments</button></>
+                )}
+                  </div>
                 </div>
           </div>
         )

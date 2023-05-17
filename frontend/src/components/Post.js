@@ -126,9 +126,7 @@ return (
       <div className={styles.post_container}>
         <div className={styles.post_header}>
           <h1>Make your drink!</h1>
-        </div>
-
-        <div className={styles.grid_container}>
+        </div> 
           <div className={styles.input_fields}>
             <input className={styles.post_input1} onChange={(e) => setName(e.target.value)} placeholder='Title of your drink' type='text' />
 
@@ -149,44 +147,6 @@ return (
 
 
           </div>
-
-          <div>
-            <div className={styles.posts_header}>
-           
-
-            </div>
-            <div className={styles.posts_container} >
-
-              <div className={styles.grid_container}>
-                <div className={styles.post_img_container}>
-                  <img className={styles.img} src={picturePreview} />
-                </div>
-                <div>
-                  <h2>{name}</h2>
-                  <div >
-                    <h3>Recipe:</h3>
-                    <div className={styles.tag_container}>
-                      <ul>
-                        {recipe.map((ingredient, index) => (
-                          <li key={index}>
-                            {ingredient}
-                          </li>
-
-                        ))}
-                      </ul>
-
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div className={styles.description}><h3>Description:</h3>{description} </div>
-                </div>
-              </div>
-
-
-            </div>
-          </div>
-        </div>
 
         <button className={buttons.button2} onClick={createPost}>Upload</button>
       </div>

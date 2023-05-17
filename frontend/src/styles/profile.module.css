@@ -19,7 +19,7 @@ h3{
     display: block;
     overflow: hidden;
     margin: 20px auto;
-    border: 3px solid rgb(0, 0, 0);
+    border: 1px solid rgb(156, 156, 156);
     
 }
 .profile{
@@ -27,12 +27,13 @@ h3{
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: 5px;
-    border: 2px solid rgb(0, 0, 0);
+    border: 1px solid rgb(156, 156, 156);
     box-shadow: 0 8px 23px 0 rgba(37, 37, 37, 0.562);
     text-align: center;
     width: 40vw;
     margin: 100px auto;
     min-height: 50vh;
+   
     
 }
 .header{

@@ -255,7 +255,7 @@ router.post("/comment", (req, res) => {
     })
   comment.save()
     .then(console.log("comment saved successfully"))
-    res.send(comment)
+    res.json(comment)
 
 })
 
@@ -275,14 +275,28 @@ router.put('/savecomment', async (req, res) => {
 
     console.log(comment)
 
-    //post.comments.push(comment)
+    post.comments.push(comment)
 
-    //await post.save()
+    await post.save()
+
+    res.send("Success")
   }
+})
+router.get('/getcomments', async (req, res) => {
 
  
+  const postId = req.headers.author
 
+  postModel.find({ author: postId })
+    .populate('comments')
+    .exec()
+    .then(comments => {
+      res.json(comments)
+
+    })
 })
+
+
 
 
 module.exports = router

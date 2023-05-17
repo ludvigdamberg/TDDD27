@@ -7,12 +7,21 @@ import buttons from '../styles/buttons.module.css'
 import { FaArrowLeft } from 'react-icons/fa';
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-
+import { useNavigate } from 'react-router-dom'
 
 const Feed = () => {
     const [profileData, setProfileData] = useState()
     const [loading, setLoading] = useState(true)
     const [openPost, setOpenPost] = useState(false)
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const navigate = useNavigate();
+
+
+    const logout = () => {
+        localStorage.removeItem("token")
+        setIsLoggedIn(false)
+        navigate('/')
+      }
 
     const fetchProfile = async () => {
 
@@ -31,9 +40,26 @@ const Feed = () => {
 
 
     }
+    const checkLoggedIn = async () => {
+
+        const token = localStorage.getItem('token');
+        if (!token) {
+          logout()
+          return;
+        }
+        const response = await axios.get('http://localhost:5000/profile', {
+          headers: { Authorization: `Bearer ${token}` },
+        }).then((res) => {
+          setIsLoggedIn(true);
+        }).catch(err => {
+          localStorage.removeItem("token")
+          logout()
+        })
+      }
+
 
     useEffect(() => {
-
+        checkLoggedIn()
         fetchProfile()
 
     }, [])
@@ -51,7 +77,7 @@ const Feed = () => {
 
         return (
 
-            <div>
+            <div className={styles.feed}>
                 <div className={styles.header}>
 
                     <div className={styles.header_photo}> <img className={styles.posts_header_img} src={`http://localhost:5000/uploads/${profileData.photo}`} /></div>
@@ -60,11 +86,11 @@ const Feed = () => {
                     </button></div>
                 </div>
                 <div className={buttons.arrow}><Link to='/'><FaArrowLeft /></Link></div>
-                <div> {openPost ? (
-                    <Post/>
+                {openPost ? (
+                    <div className={styles.body}> <Post /></div>
                 ) : (
-                   <></>
-                )}</div>
+                    <></>
+                )}
 
 
                 <div className={styles.container} >

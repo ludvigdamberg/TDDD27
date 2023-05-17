@@ -17,11 +17,7 @@ const Login = () => {
 
         <p>or register <Link to='/register'>here</Link></p>
       </div>
-      <div className={styles.right}>
-        <div className={styles.image_container}>
-          <img src='../content/cheers.jpg' />
-        </div>
-      </div>
+
     </div>
   )
 }

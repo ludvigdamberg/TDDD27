@@ -9,14 +9,9 @@ const Register = () => {
   return (
     <div className={styles.parent}>
       <div className={styles.left}>
-      <div className={buttons.arrow}><Link to='/'><FaArrowLeft /></Link></div>
+        <div className={buttons.arrow}><Link to='/'><FaArrowLeft /></Link></div>
         <h1 className={styles.label}>Register</h1>
-        <SignUp/>
-      </div>
-      <div className={styles.right}>
-        <div className={styles.image_container}>
-          <img src='../content/cheers.jpg' />
-        </div>
+        <SignUp />
       </div>
     </div>
   )
