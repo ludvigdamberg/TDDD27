@@ -85,7 +85,7 @@ const Feed = () => {
                     <div className={styles.header_button}><button onClick={handleOpenPost} className={buttons.button3}>add post +
                     </button></div>
                 </div>
-                <div className={buttons.arrow}><Link to='/'><FaArrowLeft /></Link></div>
+                <div className={buttons.arrow}><Link to='/'><FaArrowLeft /> Home</Link></div>
                 {openPost ? (
                     <div className={styles.body}> <Post /></div>
                 ) : (

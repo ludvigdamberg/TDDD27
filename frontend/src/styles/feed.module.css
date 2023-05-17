@@ -377,7 +377,7 @@ outline: none;
   color: white;
   display: flex;
   align-items: center;
-
+  width: 900px;
 }
 
 .posts_header_img {

@@ -74,7 +74,7 @@ const Profile = () => {
     return (
       <>
         <div className={styles.header}>
-        <div className={buttons.arrow}><Link to='/'><FaArrowLeft /></Link></div>
+        <div className={buttons.arrow}><Link to='/'><FaArrowLeft /> Home</Link></div>
           <h1>Welcome to your profile page</h1>
           <p>Redirect through these links</p>
 
