@@ -74,7 +74,7 @@ const Feed = () => {
     }
 
     if (loading == false) {
-
+        
         return (
 
             <div className={styles.feed}>

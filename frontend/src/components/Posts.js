@@ -55,7 +55,7 @@ const Posts = () => {
     get_profile()
   }, [])
 
-  
+
 
 
   const handleChange = (e) => {
@@ -83,32 +83,37 @@ const Posts = () => {
 
     axios.post("http://localhost:5000/comment", { profile_name: profileData.username, profile_picture: profileData.photo, comment: comment })
       .then((res) => {
-       console.log(res.data._id)
-      
-       axios.put("http://localhost:5000/savecomment", {post_id: id, comment_id: res.data._id })
-       .then((res) => {
-         console.log(res.data)
- 
-       }).catch(err => console.log(err))
+        console.log(res.data._id)
+
+        axios.put("http://localhost:5000/savecomment", { post_id: id, comment_id: res.data._id })
+          .then((res) => {
+            console.log(res.data)
+
+          }).catch(err => console.log(err))
 
       }).catch(err => console.log(err))
-  
+
   }
 
-  const save_comment = (id) => {
 
-   
+  const get_comments = (id) => {
 
-  
-      console.log(commentData)
+    console.log(id)
+    setLoading(true)
 
-   /*   axios.put("http://localhost:5000/savecomment", {post_id: id, comment_id: comment_id._id })
+
+    axios.get("http://localhost:5000/getcomments", { headers: { postId: id } })
       .then((res) => {
-        console.log(res.data)
+        setCommentData(res.data) 
+        setShowComments(true)
+      })
+      
+     
 
-      }).catch(err => console.log(err))*/
-
+      setLoading(false) 
+     
   }
+
 
   if (loading) {
     return (
@@ -117,6 +122,7 @@ const Posts = () => {
       </div>
     )
   } else
+    console.log(posts)
   return (
 
 
@@ -156,32 +162,47 @@ const Posts = () => {
 
                         ))}
                       </ul>
-                    
+
                     </div>
                   </div>
                 </div>
                 <div>
                   <div className={styles.description}><h3>Description:</h3>{post.description} </div>
                 </div>
-              
+
               </div>
 
-             
+
             </div>
-  <div>
-                  <input type='text' className={styles.comment_input} onChange={(e) => setComment(e.target.value)} />
-                  <button onClick={() => handleComment(post._id)} className={styles.comment_button} >Comment</button>
-                  <div className={styles.comments}>
-                    {showComments ? (
-                    <div >HELLO
-                      <button onClick={() => setShowComments(false)}>hide comments</button>
-                    </div>
-                    
-                ) : (
-                    <> <button onClick={() => setShowComments(true)}>show comments</button></>
-                )}
+            <div>
+              <input type='text' className={styles.comment_input} onChange={(e) => setComment(e.target.value)} />
+              <button onClick={() => handleComment(post._id)} className={styles.comment_button} >Comment</button>
+              <div className={styles.comments}>
+                {showComments ? (
+                  <div >
+                    <button className={buttons.button3} onClick={() => setShowComments(false)}>hide comments</button>
+
+                    {loading ? (<></>) : commentData.map((comment) => {
+                      return(
+                      <>
+                        <div className={styles.comment_header}>
+                          <img className={styles.posts_header_img} src={`http://localhost:5000/uploads/${comment.profile_picture}`} />
+                          <p>{comment.profile_name}</p>
+                        </div>
+                        <div className={styles.comment}>
+                        <p>{comment.comment}</p>
+
+                        </div>
+                      </>
+                    )})}
+
                   </div>
-                </div>
+
+                ) : (
+                  <> <button className={buttons.button3} onClick={() => get_comments(post._id)}>show comments</button></>
+                )}
+              </div>
+            </div>
           </div>
         )
       })}</div>

@@ -65,9 +65,9 @@ const ProfilePosts = () => {
                     return (
                         <div className={styles.wrapper}>
                             <div className={styles.posts_container} key={post._id}>
-                                <div className={styles.post_img_container}>
-                                    <img className={styles.img} src={`http://localhost:5000/uploads/${post.photo}`} />
-                                </div>
+                               
+                                    <img className={styles.post_img_container2} src={`http://localhost:5000/uploads/${post.photo}`} />
+                               
                                 <div>
                                     <h1>{post.name}</h1>
                                     <div >

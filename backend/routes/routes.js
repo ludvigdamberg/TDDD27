@@ -101,13 +101,13 @@ router.get('/posts', async (req, res) => {
 
   const loads = req.headers.loads
 
-console.log(loads)
+  console.log(loads)
 
   if (req.headers.search.length == 0) {
-    const posts = await postModel.find().limit(loads*2).exec()
+    const posts = await postModel.find().limit(loads * 2).exec()
     return res.send(posts)
 
-  } else if(req.headers.search.length > 0){
+  } else if (req.headers.search.length > 0) {
 
     const search = req.headers.search; // Get the search query from the request query parameters
 
@@ -118,31 +118,31 @@ console.log(loads)
         { recipe: { $regex: search, $options: "i" } }
         // add as many components as needed
       ],
-    }).limit(loads*2).exec()
-    
+    }).limit(loads * 2).exec()
+
     return res.send(posts)
-    
+
   }
- 
+
 
 
 })
 router.get('/search', async (req, res) => {
- 
 
-    const search = req.headers.search; // Get the search query from the request query parameters
 
-    console.log(search)
-    const posts = await postModel.find({
-      $or: [
-        { name: { $regex: searchString, $options: "i" } },
-        { recipe: { $regex: searchString, $options: "i" } }
-        // add as many components as needed
-      ],
-    })
-    
-    return res.send(posts)
-     
+  const search = req.headers.search; // Get the search query from the request query parameters
+
+  console.log(search)
+  const posts = await postModel.find({
+    $or: [
+      { name: { $regex: searchString, $options: "i" } },
+      { recipe: { $regex: searchString, $options: "i" } }
+      // add as many components as needed
+    ],
+  })
+
+  return res.send(posts)
+
 
 })
 
@@ -222,13 +222,13 @@ router.put('/upvote', async (req, res) => {
     post.upvotes.splice(index, 1)
     await post.save()
     return res.json("upvote deleted")
-  }else{
-     post.upvotes.push(req.body.upvote)
-      await post.save()
-      res.send(post)
+  } else {
+    post.upvotes.push(req.body.upvote)
+    await post.save()
+    res.send(post)
   }
 
- 
+
 
 })
 
@@ -255,7 +255,7 @@ router.post("/comment", (req, res) => {
     })
   comment.save()
     .then(console.log("comment saved successfully"))
-    res.json(comment)
+  res.json(comment)
 
 })
 
@@ -269,7 +269,7 @@ router.put('/savecomment', async (req, res) => {
 
   if (!post) {
     return res.json("Not a valid post")
-  }else{
+  } else {
 
     const comment = req.body.comment_id
 
@@ -282,18 +282,33 @@ router.put('/savecomment', async (req, res) => {
     res.send("Success")
   }
 })
+
+
 router.get('/getcomments', async (req, res) => {
 
- 
-  const postId = req.headers.author
 
-  postModel.find({ author: postId })
-    .populate('comments')
-    .exec()
-    .then(comments => {
-      res.json(comments)
+  const postId =   req.headers.postid
 
-    })
+  const post = await postModel.findById(postId);
+
+  if (!post) {
+    return res.send("Somethings up bud!");
+  }
+
+  const commentIds = post.comments
+
+  console.log(commentIds)
+
+  const comments = []
+
+  for (const commentId of commentIds) {
+    const comment = await commentModel.findById(commentId);
+    if (comment) {
+      comments.push(comment);
+    }
+  }
+
+  res.send(comments)
 })
 
 

@@ -1,6 +1,6 @@
 .button {
     font-size: 18px;
-    color: #000000;
+    color: #ffffff;
     font-family: inherit;
     font-weight: 800;
     cursor: pointer;
@@ -11,12 +11,13 @@
     transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
     transition-duration: 400ms;
     transition-property: color;
+    margin: 20px;
     
   }
   
   .button:focus,
   .button:hover {
-    color: #7f9ec5;
+    color: #fff597;
   }
   
   .button:focus:after,
@@ -33,7 +34,7 @@
     position: absolute;
     width: 0%;
     height: 2px;
-    background-color: #7f9ec5;
+    background-color: #fff597;
     transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
     transition-duration: 400ms;
     transition-property: width, left;
@@ -114,7 +115,8 @@
     font-size: 18px;
     line-height: normal;
     height: 40px;
-    width: 100px;
+    width: 150px;
+    margin: 5px;
     outline: none;
     text-align: center;
     transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
