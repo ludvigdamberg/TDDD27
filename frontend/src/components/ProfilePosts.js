@@ -29,10 +29,10 @@ const ProfilePosts = () => {
         )
             .then((res) => {
                 setPosts(res.data);
-
             }).catch(err => console.log(err))
-
-        setLoading(false)
+        setTimeout(() => {
+            setLoading(false)
+        }, 1000) 
     }
 
     const deletePost = async (image, id) => {
@@ -48,26 +48,26 @@ const ProfilePosts = () => {
     }
 
     useEffect(() => {
-        setLoading(true)
         loadPosts()
+       
     }, [])
 
     if (loading) {
         return (
             <div>
-                <Loading />
+                <></>
             </div>
         )
     } else
         return (
             <div className={styles.container}>
-                <div>{posts.map((post) => {
+                <div>{posts.map((post,index) => {
                     return (
-                        <div className={styles.wrapper}>
-                            <div className={styles.posts_container} key={post._id}>
-                               
-                                    <img className={styles.post_img_container2} src={`http://localhost:5000/uploads/${post.photo}`} />
-                               
+                        <div className={styles.wrapper} key={post._id}>
+                            <div className={styles.posts_container} >
+
+                                <img className={styles.post_img_container2} src={`http://localhost:5000/uploads/${post.photo}`} />
+
                                 <div>
                                     <h1>{post.name}</h1>
                                     <div >

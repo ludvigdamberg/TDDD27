@@ -3,7 +3,6 @@ const express = require('express')
 const cors = require('cors')
 require('dotenv').config()
 const Routes = require('./routes/routes')
-const { errorHandler, notFound } = require('./middlewares/errorMiddleware')
 const checkUserExists = require('./middlewares/MulterMiddleware')
 
 
@@ -14,8 +13,6 @@ app.use(express.json())
 app.use(express.static("public"))
 app.use(cors())
 app.use(Routes)
-app.use(notFound)
-app.use(errorHandler)
 
 
 const PORT = process.env.PORT || 5000

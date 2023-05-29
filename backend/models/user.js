@@ -1,7 +1,5 @@
 const mongoose = require('mongoose')
-const jwt = require('jsonwebtoken')
 require('dotenv').config()
-const passwordComplexity = require('joi-password-complexity')
 const bcrypt = require('bcrypt')
 
 const userSchema = new mongoose.Schema({

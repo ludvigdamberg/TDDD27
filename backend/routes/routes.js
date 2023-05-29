@@ -7,7 +7,6 @@ const multer = require('multer')
 const generateToken = require('../utils/generateToken')
 const asyncHandler = require('express-async-handler')
 const router = Router()
-const auth = require('../middlewares/auth')
 const jwt = require('jsonwebtoken');
 const fs = require('fs')
 const commentModel = require('../models/comment')
@@ -17,7 +16,7 @@ require('dotenv').config()
 
 
 
-//Log in
+//Logga in
 router.post('/login', async (req, res) => {
 
   const { email, password } = req.body
@@ -40,7 +39,8 @@ router.post('/login', async (req, res) => {
   }
 })
 
-//Register
+//Registrering 
+
 router.post("/register", uploadMiddleware.single("photo"), asyncHandler(async (req, res) => {
 
   const email = req.body.email
@@ -72,12 +72,10 @@ router.post("/register", uploadMiddleware.single("photo"), asyncHandler(async (r
   }
 }))
 
-//Create post
+//Skapa inlägg
 router.post("/post", uploadMiddleware.single("photo"), (req, res) => {
 
   const photo = req.file.filename
-
-
 
   const post = new postModel(
     {
@@ -96,7 +94,7 @@ router.post("/post", uploadMiddleware.single("photo"), (req, res) => {
 })
 
 
-//Get posts
+//Hämta inlägg
 router.get('/posts', async (req, res) => {
 
   const loads = req.headers.loads
@@ -109,7 +107,7 @@ router.get('/posts', async (req, res) => {
 
   } else if (req.headers.search.length > 0) {
 
-    const search = req.headers.search; // Get the search query from the request query parameters
+    const search = req.headers.search;
 
     console.log(search)
     const posts = await postModel.find({
@@ -127,17 +125,18 @@ router.get('/posts', async (req, res) => {
 
 
 })
+
+//Hämta resusltat i databasen utefter en sökning
+
 router.get('/search', async (req, res) => {
 
 
-  const search = req.headers.search; // Get the search query from the request query parameters
+  const search = req.headers.search; 
 
-  console.log(search)
   const posts = await postModel.find({
     $or: [
       { name: { $regex: searchString, $options: "i" } },
       { recipe: { $regex: searchString, $options: "i" } }
-      // add as many components as needed
     ],
   })
 
@@ -147,7 +146,7 @@ router.get('/search', async (req, res) => {
 })
 
 
-//get profile posts
+//Hämta profilinlägg
 router.get('/profilePosts', async (req, res) => {
 
   const userId = req.headers.author
@@ -156,23 +155,21 @@ router.get('/profilePosts', async (req, res) => {
     .populate('author')
     .exec()
     .then(posts => {
-      res.json(posts)
+      res.send(posts)
 
     })
 })
 
-//fetch profile
+//Hämta specifik profil
 router.get('/profile', (req, res) => {
-  // Get the user's token from local storage
+
+
   const token = req.headers.authorization.split(' ')[1];
-  // Use jwt.verify to decode the token and get the user ID
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
-      // If the token is invalid, send an error response
       return res.status(401).json({ message: 'Invalid token' });
     }
     const userId = decoded.userId;
-    // If the token is valid, use the user ID to fetch the user data from the database
 
 
     userModel.findById(userId)
@@ -185,6 +182,8 @@ router.get('/profile', (req, res) => {
   });
 });
 
+
+//Ta bort ett inlägg och radera bild ur databasen
 router.post('/deletePost', async (req, res) => {
 
 
@@ -202,7 +201,7 @@ router.post('/deletePost', async (req, res) => {
 })
 
 
-// adding user id to upvote list
+// Upvote, lägger till en användares id i en array
 router.put('/upvote', async (req, res) => {
 
   console.log(req.body)
@@ -232,17 +231,7 @@ router.put('/upvote', async (req, res) => {
 
 })
 
-router.get("/api/posts/search", (req, res) => {
-  const search = req.headers.search; // Get the search query from the request query parameters
-  postModel.find({ $text: { $search: search } }, (err, posts) => {
-    if (err) {
-      console.log(err);
-      return res.status(500).send("Internal server error");
-    }
-    return res.json(posts); // Send the matching posts back to the frontend
-  });
-});
-
+//kommentera ett inlägg
 router.post("/comment", (req, res) => {
 
   console.log(req.body)
@@ -259,6 +248,7 @@ router.post("/comment", (req, res) => {
 
 })
 
+//spara kommentaren i inläggsmodellen
 router.put('/savecomment', async (req, res) => {
 
   console.log(req.body)
@@ -283,7 +273,7 @@ router.put('/savecomment', async (req, res) => {
   }
 })
 
-
+//hämta kommentarer för ett specifikt inlägg
 router.get('/getcomments', async (req, res) => {
 
 
@@ -310,7 +300,6 @@ router.get('/getcomments', async (req, res) => {
 
   res.send(comments)
 })
-
 
 
 

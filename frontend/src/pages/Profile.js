@@ -9,14 +9,17 @@ import Loading from '../components/Loading';
 import { FaArrowLeft } from 'react-icons/fa';
 import buttons from '../styles/buttons.module.css'
 import jwt_decode from 'jwt-decode';
+
+
 const Profile = () => {
 
   const [profileData, setProfileData] = useState()
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
-  const [posts, setPosts] = useState(null)
+  const [posts, setPosts] = useState()
+  let upvotes = 0
 
   const loadPosts = async () => {
 
@@ -28,16 +31,20 @@ const Profile = () => {
 
     await axios.get('http://localhost:5000/profilePosts', { headers: { author: `${author}` } },
     )
-        .then((res) => {
-            setPosts(res.data);
+      .then((res) => {
+        setPosts(res.data);
 
-        }).catch(err => console.log(err))
+      }).catch(err => console.log(err))
+    setTimeout(() => {
+      setLoading(false)
+    }, 1000)
 
-    setLoading(false)
-}
+  }
 
 
-  
+
+
+
   const checkLoggedIn = async () => {
 
     const token = localStorage.getItem('token');
@@ -57,10 +64,8 @@ const Profile = () => {
 
   const fetchProfile = async () => {
 
-    setLoading(true)
 
     const token = localStorage.getItem('token');
-    console.log(token)
 
     axios.get('http://localhost:5000/profile', {
       headers: {
@@ -71,7 +76,6 @@ const Profile = () => {
 
     }).catch(err => console.log(err))
 
-    setLoading(false)
   }
 
   const logout = () => {
@@ -87,15 +91,28 @@ const Profile = () => {
 
   }, [])
 
-  if (!profileData) {
+  const count_upvotes = () => {
+
+    posts.map((post) => {
+      upvotes += post.upvotes.length
+      console.log(upvotes)
+    })
+
+  }
+
+
+
+  if (loading === true) {
     return (
       <Loading />
     )
-  } else if (profileData) {
-    console.log(profileData)
+  } else if (loading === false) {
 
+   count_upvotes()
     return (
+
       <>
+
         <div className={styles.header}>
           <h1>Profile Page</h1>
 
@@ -124,7 +141,7 @@ const Profile = () => {
               <div> <h3>Posts</h3></div>
             </div>
             <div className={styles.info_slot}>
-              <div> <h1>0</h1></div>
+              <div> <h1>{upvotes}</h1></div>
               <div> <h3>Upvotes</h3></div>
             </div>
           </div>

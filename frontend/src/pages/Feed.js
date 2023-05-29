@@ -8,6 +8,7 @@ import { FaArrowLeft } from 'react-icons/fa';
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import Loading from '../components/Loading'
 
 const Feed = () => {
     const [profileData, setProfileData] = useState()
@@ -21,7 +22,7 @@ const Feed = () => {
         localStorage.removeItem("token")
         setIsLoggedIn(false)
         navigate('/')
-      }
+    }
 
     const fetchProfile = async () => {
 
@@ -35,8 +36,11 @@ const Feed = () => {
             }
         }).then((res) => {
             setProfileData(res.data);
-            setLoading(false)
         }).catch(err => console.log(err))
+
+        setTimeout(() => {
+            setLoading(false)
+        }, 1000)
 
 
     }
@@ -44,18 +48,18 @@ const Feed = () => {
 
         const token = localStorage.getItem('token');
         if (!token) {
-          logout()
-          return;
+            logout()
+            return;
         }
         const response = await axios.get('http://localhost:5000/profile', {
-          headers: { Authorization: `Bearer ${token}` },
+            headers: { Authorization: `Bearer ${token}` },
         }).then((res) => {
-          setIsLoggedIn(true);
+            setIsLoggedIn(true);
         }).catch(err => {
-          localStorage.removeItem("token")
-          logout()
+            localStorage.removeItem("token")
+            logout()
         })
-      }
+    }
 
 
     useEffect(() => {
@@ -73,10 +77,14 @@ const Feed = () => {
         }
     }
 
-    if (loading == false) {
-        
+    if (loading === true) {
         return (
+        <Loading />
+        )
 
+    }
+    else {
+        return (
             <div className={styles.feed}>
                 <div className={styles.header}>
 
@@ -99,9 +107,9 @@ const Feed = () => {
             </div>
 
         )
-    } else {
-        return (<div>loading</div>)
+
     }
+
 }
 
 export default Feed

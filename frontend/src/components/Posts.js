@@ -10,14 +10,14 @@ import buttons from '../styles/buttons.module.css'
 const Posts = () => {
 
   const [posts, setPosts] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [drinks, setDrinks] = useState([])
   const [loads, setLoads] = useState(1)
   const [search, setSearch] = useState("")
   const [searchChange, setSearchChange] = useState()
   const [profileData, setProfileData] = useState()
   const [comment, setComment] = useState("")
-  const [commentData, setCommentData] = useState()
+  const [commentData, setCommentData] = useState([])
   const [showComments, setShowComments] = useState(false)
 
   const get_profile = () => {
@@ -34,18 +34,18 @@ const Posts = () => {
         setProfileData(res.data)
 
       })
-    setLoading(false)
+      setTimeout(() => {
+        setLoading(false)
+      }, 1000)
   }
 
   const loadPosts = () => {
 
-    setLoading(true)
 
     console.log(loads)
     axios.get("http://localhost:5000/posts", { headers: { loads: loads, search: search } })
       .then((res) => {
         setPosts(res.data)
-        setLoading(false)
       })
     setLoads(loads + 1)
   }
@@ -101,6 +101,7 @@ const Posts = () => {
     console.log(id)
     setLoading(true)
 
+  
 
     axios.get("http://localhost:5000/getcomments", { headers: { postId: id } })
       .then((res) => {
@@ -109,22 +110,16 @@ const Posts = () => {
       })
       
      
-
-      setLoading(false) 
+      setTimeout(() => {
+        setLoading(false)
+      }, 1000)
+    
      
   }
 
 
-  if (loading) {
-    return (
-      <div>
-        <Loading />
-      </div>
-    )
-  } else
-    console.log(posts)
+  
   return (
-
 
     <div>
       <input className={styles.searchbar}
@@ -183,6 +178,8 @@ const Posts = () => {
                     <button className={buttons.button3} onClick={() => setShowComments(false)}>hide comments</button>
 
                     {loading ? (<></>) : commentData.map((comment) => {
+                      if (post.comments.includes(comment._id)) {
+
                       return(
                       <>
                         <div className={styles.comment_header}>
@@ -194,7 +191,7 @@ const Posts = () => {
 
                         </div>
                       </>
-                    )})}
+                    )}})}
 
                   </div>
 
